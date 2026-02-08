@@ -1,0 +1,173 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Montserrat", sans-serif;
+    min-height: 100vh;
+    min-width: 100vw;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), transparent), url("dbms_img.jpg");
+    -webkit-background-size: cover;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    overflow-x: hidden;
+}
+
+.header {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.form-area {
+    position: relative;
+    display: grid;
+    place-items: center;
+    height: 100vh;
+    z-index: 10;
+}
+
+.wrapper {
+    width: 400px;
+    height: auto;
+    color: #fff;
+    padding: 50px 30px;
+    position: relative;
+    background: rgba(34, 34, 34, 0.9);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
+    border-radius: 25px;
+    z-index: 100;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.wrapper h2 {
+    text-align: center;
+    margin: 0;
+    margin-bottom: 30px;
+    font-size: 24px;
+}
+
+.wrapper p {
+    margin: 0;
+    padding: 0;
+    font-weight: 300;
+    text-align: center;
+}
+
+.box {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.wrapper input, button {
+    border: 1px solid #bababa;
+    background: transparent;
+    outline: none;
+    height: 50px;
+    color: #fff;
+    font-size: 16px;
+    width: 100%;
+    padding: 15px;
+    border-radius: 50px;
+}
+
+.box i {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    color: #fff;
+}
+
+.wrapper .options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.wrapper .options label {
+    color: #fff;
+    font-size: 16px;
+}
+
+.options input[type="checkbox"] {
+    width: 15px;
+    height: auto;
+}
+
+.wrapper a {
+    text-decoration: none;
+    color: #ffd0a7;
+}
+
+.wrapper button {
+    background: #ffd0a7;
+    color: #262626;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.wrapper button:hover {
+    background: #fbfcca;
+}
+
+p a {
+    color: #ffd0a7;
+    text-decoration: none;
+}
+
+p a:hover {
+    text-decoration: underline;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.title-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(34, 34, 34, 0.9);
+    color: #ffd0a7;
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+}
+
+.logo {
+    height: 40px;
+    width: auto;
+    margin-right: 10px;
+    margin-left: 700px;
+}
+
+.site-name {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+}
+
+.form-area {
+    margin-top: 80px;
+}
