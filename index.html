@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">   
+<head>
+    <meta charset="UTF-8">  
+    <title>Yoke E-Commerce</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css"> 
+    <style>
+        .products-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            margin-top: 100px;
+        }
+        .product-card {
+            background: rgba(34, 34, 34, 0.9);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 20px;
+            color: white;
+            transition: transform 0.3s ease;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        .product-title {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+        .product-price {
+            color: #ffd0a7;
+            font-weight: bold;
+        }
+        .add-to-cart {
+            background: #ffd0a7;
+            color: #262626;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 10px;
+            width: 100%;
+        }
+        .cart-icon {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div class="title-bar">
+        <img src="drago.png" class="logo" alt="Logo">
+        <h1 class="site-name">Internet Sales</h1>
+        <div class="cart-icon">
+            <i class="fa fa-shopping-cart"></i>
+            <span id="cart-count">0</span>
+        </div>
+    </div>
+
+    <div style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
+        <a href="login.html" style="display: inline-block; background: #ffd0a7; color: #262626; text-decoration: none; font-weight: bold; padding: 12px 24px; border-radius: 50px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); transition: all 0.3s ease;">Login</a>
+    </div>
+
+    <div class="header finisher-header" style="width: 100%; height: 1500px;"></div>
+
+    <div class="products-container" id="products"></div>
+    
+    <script src="finisher-header.js" type="text/javascript"></script>
+    <script src="background-animation.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        const products = {
+            "p1": { name: "Wireless Headphones", price: 99.99, image: "img/img1.jpeg" },
+            "p2": { name: "Smart Watch", price: 199.99, image: "img/img2.jpeg" },
+            "p3": { name: "Bluetooth Speaker", price: 79.99, image: "img/img3.jpeg" },
+            "p4": { name: "Gaming Keyboard", price: 129.99, image: "img/img4.jpeg" },
+            "p5": { name: "4K Monitor", price: 299.99, image: "img/img5.jpeg" },
+            "p6": { name: "Wireless Mouse", price: 49.99, image: "img/img6.jpeg" },
+            "p7": { name: "Noise Cancelling Headphones", price: 249.99, image: "img/img7.jpeg" },
+            "p8": { name: "External SSD 1TB", price: 129.99, image: "img/img8.jpeg" },
+            "p9": { name: "Smartphone Gimbal", price: 89.99, image: "img/img9.jpeg" },
+            "p10": { name: "Wireless Charger", price: 29.99, image: "img/img10.jpeg" },
+            "p11": { name: "Laptop Stand", price: 39.99, image: "img/img11.jpeg" },
+            "p12": { name: "Mechanical Keyboard", price: 109.99, image: "img/img12.jpeg" }
+        };
+
+        function renderProducts() {
+            const productsContainer = document.getElementById('products');
+            productsContainer.innerHTML = '';
+            Object.keys(products).forEach((productId) => {
+                const product = products[productId];
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card';
+                productCard.innerHTML = `
+                    <img src="${product.image}" class="product-image">
+                    <h3 class="product-title">${product.name}</h3>
+                    <p class="product-price">₹${product.price.toFixed(2)}</p>
+                    <button class="add-to-cart" data-id="${productId}" data-name="${product.name}" data-price="${product.price}">Add to Cart</button>
+                `;
+                productsContainer.appendChild(productCard);
+            });
+        }
+
+        let cart = [];
+        const cartCount = document.getElementById('cart-count');
+        const cartIcon = document.querySelector('.cart-icon');
+
+        function updateCartCount() {
+            cartCount.textContent = cart.length;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProducts();
+            cart = JSON.parse(localStorage.getItem('cart')) || [];
+            updateCartCount();
+        });
+
+        cartIcon.addEventListener('click', () => {
+            window.location.href = 'cart.html';
+        });
+
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('add-to-cart')) {
+                const productId = e.target.getAttribute('data-id');
+                const productName = e.target.getAttribute('data-name');
+                const productPrice = parseFloat(e.target.getAttribute('data-price'));
+                const existingItem = cart.find(item => item.id === productId);
+                if (existingItem) {
+                    existingItem.quantity++;
+                } else {
+                    cart.push({id: productId, product_name: productName, product_price: productPrice, quantity: 1});
+                }
+                updateCartCount();
+                localStorage.setItem('cart', JSON.stringify(cart));
+                // No redirection after adding to cart
+            }
+        });
+    </script>
+</body>
+</html>
